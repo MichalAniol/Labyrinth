@@ -17,10 +17,12 @@ public:
 private:
 	int board[22][22];
 	int here_i_am_x, here_i_am_y;
+	int way_out[300][2];
 	int win = false;
 
 	void board_generator(int * board, int board_size_x, int board_size_y);
 	int looking_for_passage(int direction, int here_i_am_x, int here_i_am_y);
+	int looking_for_the_way_out();
 	void moves();
 	bool Toucher(cocos2d::Touch *touch, cocos2d::Event *event);
 	int surface_is_touched(int y, int x);
@@ -30,6 +32,7 @@ private:
 	bool bottons_showup();
 	bool ball_on_start();
 	bool touch_surfaces();
+	bool show_me_the_way_out();
 	void  the_win();
 
 	cocos2d::Sprite* empty_map;
@@ -41,6 +44,8 @@ private:
 	cocos2d::Sprite* key_right;
 	cocos2d::Sprite* key_left;
 	cocos2d::Sprite* button_reset;
+	cocos2d::Sprite* button_way_out;
+	cocos2d::Layer* button_the_way_out;
 
 	cocos2d::Layer* button_up;
 	cocos2d::Layer* button_down;
@@ -48,6 +53,9 @@ private:
 	cocos2d::Layer* button_left;
 
 	cocos2d::Sprite* ball;
+
+	cocos2d::Layer* ariadnes_thread;
+	//cocos2d::DrawNode* ariadnes_line;
 
 	cocos2d::Sprite* cup;
 	cocos2d::Sprite* finito1;

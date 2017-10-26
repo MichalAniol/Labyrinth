@@ -44,9 +44,14 @@ bool Labyrinth::init()
 
 	board_generator(&board[0][0], 22, 22);
 
+	ariadnes_thread = Layer::create();
+	ariadnes_thread->setAnchorPoint(Vec2::ZERO);
+	addChild(ariadnes_thread, 5);
+	show_me_the_way_out();
+
 	walls();
 
-	//touch_surfaces();		// turn it on if wanna see active areas
+	touch_surfaces();		// turn it on if wanna see active areas
 
 	moves();
 

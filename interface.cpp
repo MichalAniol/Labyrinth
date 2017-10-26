@@ -172,7 +172,12 @@ bool Labyrinth::bottons_showup()
 	button_reset->setPosition(884, 90);
 	button_reset->setScale(.667f);
 	addChild(button_reset, 6);
-	
+
+	button_way_out = Sprite::create("komponenty/show me the way.png");
+	button_way_out->setPosition(884, 220);
+	button_way_out->setScale(.667f);
+	addChild(button_way_out, 6);
+
 	key_up->setScale(.1f);
 	key_down->setScale(.1f);
 	key_left->setScale(.1f);
@@ -226,9 +231,45 @@ bool Labyrinth::touch_surfaces()
 		touch_surface->setScale(.66f);
 		touch_surface->setPosition(x, y);
 		addChild(touch_surface, 7);
+
 	}
 	return true;
 }
+
+bool Labyrinth::show_me_the_way_out()
+{
+	int how_long_the_way_is = looking_for_the_way_out();
+
+	ariadnes_thread = Layer::create();
+	ariadnes_thread->setAnchorPoint(Vec2::ZERO);
+	addChild(ariadnes_thread, 5);
+
+	for (int i = 0; i < how_long_the_way_is-1; i++)
+	{
+		auto ariadnes_line = DrawNode::create();
+		ariadnes_line->setAnchorPoint(Vec2::ZERO);
+		ariadnes_line->setPosition(Vec2::ZERO);
+		ariadnes_line->drawLine(
+			Point(86 + way_out[i][1]     * 30, 629 - way_out[i][0]     * 30), 
+			Point(86 + way_out[i + 1][1] * 30, 629 - way_out[i + 1][0] * 30), 
+			Color4F::RED);
+			ariadnes_thread->addChild(ariadnes_line, 5);
+
+		auto ariadnes_line2 = DrawNode::create();
+		ariadnes_line2->setAnchorPoint(Vec2::ZERO);
+		ariadnes_line2->setPosition(Vec2::ZERO);
+		ariadnes_line2->drawLine(
+			Point(88 + way_out[i][1] * 30, 631 - way_out[i][0] * 30),
+			Point(88 + way_out[i + 1][1] * 30, 631 - way_out[i + 1][0] * 30),
+			Color4F::RED);
+		ariadnes_thread->addChild(ariadnes_line2, 5);
+	}
+	ariadnes_thread->setPosition(0, -150);
+	ariadnes_thread->setCascadeOpacityEnabled(true);
+	ariadnes_thread->setOpacity(0);
+	return 1;
+}
+
 
 void  Labyrinth::the_win()
 {
